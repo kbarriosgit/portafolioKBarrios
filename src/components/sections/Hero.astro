@@ -1,0 +1,131 @@
+---
+import type { GetStaticPaths } from "astro";
+import { basics } from "@cv";
+import Section from "../Section.astro";
+import Mail from "@/icons/Mail.astro";
+import Telefono from "@/icons/Telefono.astro";
+import LinkedIn from "@/icons/Linkedin.astro";
+import Github from "@/icons/Github.astro";
+import Mapa from "@/icons/Mapa.astro";
+
+const { name, label, image, location, profiles, email } = basics;
+const { city, region } = location;
+const social_icons: Record<string, any> = {
+  Github,
+  LinkedIn,
+};
+---
+
+<Section>
+  <div class="container">
+    <figure>
+      <img src={image} alt={name} />
+    </figure>
+    <div class="info">
+      <h1>{name}</h1>
+      <h2>{label}</h2>
+      <footer>
+        <div class="print">
+          <div>
+            {email}
+          </div>
+        </div>
+        <div class="no-print social-icons">
+          {
+            email && (
+              <a
+                href={`mailto:${email}`}
+                title={`Enviar correo a ${name} al correo ${email}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Mail />
+              </a>
+            )
+          }
+          <!-- {
+            phone && (
+              <a
+                href={`tel:${phone}`}
+                title={`Llamar a ${name} al numero ${phone}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Telefono />
+              </a>
+            )
+          } -->
+          {
+            profiles.map(({ network, url, username }) => {
+              const Icono = social_icons[network];
+              return (
+                <a
+                  href={url}
+                  title={`Visitar el perfil de ${username} en ${network}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Icono />
+                </a>
+              );
+            })
+          }
+        </div>
+      </footer>
+    </div>
+  </div>
+</Section>
+<style>
+  .container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: 0;
+  }
+  h1 {
+    font-size: 2rem;
+    color: #555;
+  }
+  h2 {
+    color: #777;
+    font-weight: 500;
+    font-size: 1.1rem;
+    text-wrap: balance;
+  }
+  img {
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    width: 150px;
+    border-radius: 100px;
+  }
+  .info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-right: 12px;
+  }
+  footer .no-print {
+    display: flex;
+    gap: 0.3rem;
+    margin-top: 8px;
+  }
+  footer a {
+    color: #f197a3;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #f197a3;
+    padding: 4px;
+    height: 32px;
+    width: 32px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    box-shadow: 2px 2px 2px 1px #f8bbd0;
+  }
+  footer a:hover {
+    background-color: #f06292;
+    color: #fff;
+  }
+</style>

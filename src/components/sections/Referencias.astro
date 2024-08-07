@@ -1,0 +1,39 @@
+---
+import Section from "../Section.astro";
+import { references } from "@cv";
+---
+
+<Section title="Referencias">
+  <ul>
+    {
+      references.map(({ name, reference }) => {
+        return (
+          <li>
+            <div class="card">
+              <span>{name}</span>
+              <span>{reference}</span>
+            </div>
+          </li>
+        );
+      })
+    }
+  </ul>
+</Section>
+<style>
+  ul {
+    display: inline-flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  li {
+    color: #f197a3;
+    border: 1px solid #f197a3;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+  }
+  .card {
+    display: grid;
+    gap: 0.2rem;
+    text-align: center;
+  }
+</style>

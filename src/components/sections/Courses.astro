@@ -1,0 +1,32 @@
+---
+import Section from "../Section.astro";
+import { courses } from "@cv";
+---
+
+<Section title="Cursos">
+  <ul>
+    {
+      courses.map(({ course }) => {
+        return (
+          <li>
+            <span>{course}</span>
+          </li>
+        );
+      })
+    }
+  </ul>
+</Section>
+<style>
+  ul {
+    display: inline-flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  li {
+    color: #f197a3;
+    border: 1px solid #f197a3;
+    padding: 0.2rem 0.6rem;
+    font-size: 0.9rem;
+    border-radius: 6px;
+  }
+</style>

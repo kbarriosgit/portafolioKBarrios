@@ -1,0 +1,87 @@
+---
+import Section from "../Section.astro";
+
+import { work } from "@cv";
+---
+
+<Section title="Experiencia">
+  <ul>
+    {
+      work.map(({ company, position, startDate, endDate, summary, tasks }) => {
+        const startDateE = new Date(startDate);
+        const endDateE = endDate ? new Date(endDate) : new Date();
+
+        const startMonthName = startDateE.toLocaleDateString("default", {
+          month: "long",
+        });
+        const endMonthName = endDateE.toLocaleDateString("default", {
+          month: "long",
+        });
+
+        const startYear = startDateE.getFullYear();
+        const endYear = endDate ? endDateE.getFullYear() : "Actual";
+
+        const dates = `${startMonthName} ${startYear} - ${endMonthName} ${endYear}`;
+        return (
+          <li>
+            <article class="printex">
+              <header>
+                <div>
+                  <h3>{company}</h3>
+                  <h4>{position}</h4>
+                </div>
+                <div>
+                  <time>{dates}</time>
+                </div>
+              </header>
+              <footer>
+                <div class="no-print">
+                  <p>{summary}</p>
+                </div>
+                <div class="print">
+                  {tasks &&
+                    tasks.map(({ task }) => (
+                      <ul class="list-tasks">
+                        <li>&bull;{task}</li>
+                      </ul>
+                    ))}
+                </div>
+              </footer>
+            </article>
+          </li>
+        );
+      })
+    }
+  </ul>
+</Section>
+<style>
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+  article h3 {
+    font-weight: 600;
+    color: #f197a3;
+  }
+  article h4 {
+    font-weight: 500;
+    color: #777;
+  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 4px;
+  }
+  time {
+    font-size: 0.85rem;
+    color: #f197a3;
+  }
+  .list-tasks {
+    margin-left: 3px;
+    margin-top: 2px;
+    line-height: 1.8;
+    margin-bottom: 4px;
+  }
+</style>
