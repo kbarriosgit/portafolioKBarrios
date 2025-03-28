@@ -21,7 +21,7 @@ import { work } from "@cv";
         const startYear = startDateE.getFullYear();
         const endYear = endDate ? endDateE.getFullYear() : "Actual";
 
-        const dates = `${startMonthName} ${startYear} - ${endMonthName} ${endYear}`;
+        const dates = `${startMonthName} ${startYear} - ${endDate?`${endMonthName} ${endYear}`:'actualmente'}`;
         return (
           <li>
             <article class="printex">

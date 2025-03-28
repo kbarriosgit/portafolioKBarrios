@@ -11,7 +11,7 @@ import { education } from "@cv";
           const startYear = new Date(startDate).getFullYear();
           const endYear =
             endDate != null ? new Date(endDate).getFullYear() : "Actualidad";
-          const years = `${startYear} -  ${endYear}`;
+          const years = `${startYear} -  ${endDate ? `${endYear}` : "actualmente"}`;
           return (
             <li>
               <article>
